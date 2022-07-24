@@ -1,6 +1,6 @@
 import pytest
 
-from ttk_backend.users.models import User
+from ttk_backend.apps.users.models import User
 
 pytestmark = pytest.mark.django_db
 

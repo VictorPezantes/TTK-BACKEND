@@ -1,6 +1,6 @@
 from django.urls import path
 
-from ttk_backend.users.views import (
+from ttk_backend.apps.users.views import (
     user_detail_view,
     user_redirect_view,
     user_update_view,

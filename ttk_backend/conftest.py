@@ -1,7 +1,7 @@
 import pytest
 
-from ttk_backend.users.models import User
-from ttk_backend.users.tests.factories import UserFactory
+from ttk_backend.apps.users.models import User
+from ttk_backend.apps.users.tests.factories import UserFactory
 
 
 @pytest.fixture(autouse=True)

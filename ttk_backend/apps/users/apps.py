@@ -3,11 +3,11 @@ from django.utils.translation import gettext_lazy as _
 
 
 class UsersConfig(AppConfig):
-    name = "ttk_backend.users"
+    name = "ttk_backend.apps.users"
     verbose_name = _("Users")
 
     def ready(self):
         try:
-            import ttk_backend.users.signals  # noqa F401
+            import ttk_backend.apps.users.signals  # noqa F401
         except ImportError:
             pass

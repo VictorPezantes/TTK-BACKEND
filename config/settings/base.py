@@ -1,6 +1,7 @@
 """
 Base settings to build other settings files upon.
 """
+import datetime
 from pathlib import Path
 
 import environ
@@ -44,7 +45,7 @@ LOCALE_PATHS = [str(ROOT_DIR / "locale")]
 DATABASES = {
     "default": env.db(
         "DATABASE_URL",
-        default="postgres:///ttk_backend",
+        default="postgres://postgres:12345678@localhost:5432/ttk_backend",
     ),
 }
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
@@ -84,7 +85,7 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
-    "ttk_backend.users",
+    "ttk_backend.apps.users",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -134,8 +135,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/dev/ref/settings/#middleware
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-"corsheaders.middleware.CorsMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -189,7 +189,7 @@ TEMPLATES = [
                 "django.template.context_processors.static",
                 "django.template.context_processors.tz",
                 "django.contrib.messages.context_processors.messages",
-                "ttk_backend.users.context_processors.allauth_settings",
+                "ttk_backend.apps.users.context_processors.allauth_settings",
             ],
         },
     }
@@ -248,7 +248,7 @@ LOGGING = {
     "formatters": {
         "verbose": {
             "format": "%(levelname)s %(asctime)s %(module)s "
-            "%(process)d %(thread)d %(message)s"
+                      "%(process)d %(thread)d %(message)s"
         }
     },
     "handlers": {
@@ -260,7 +260,6 @@ LOGGING = {
     },
     "root": {"level": "INFO", "handlers": ["console"]},
 }
-
 
 # django-allauth
 # ------------------------------------------------------------------------------
@@ -300,9 +299,7 @@ REST_FRAMEWORK = {
     ),
     "DEFAULT_PERMISSION_CLASSES": (
         "rest_framework.permissions.IsAuthenticated",
-        # "rest_framework_api_key.permissions.HasAPIKey",
     ),
-    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
@@ -328,10 +325,10 @@ SPECTACULAR_SETTINGS = {
 JWT_AUTH = {
     'JWT_VERIFY': True,
     'JWT_VERIFY_EXPIRATION': True,
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(hours=15),
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(hours=16),
     'JWT_ALLOW_REFRESH': True,
+    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),
     'JWT_AUTH_HEADER_PREFIX': 'JWT',
-    'JWT_PAYLOAD_HANDLER': 'apps.users.utils.jwt_payload_handler'
 }
 
 # django-cors-headers - https://github.com/adamchainz/django-cors-headers#setup
