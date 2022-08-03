@@ -2,7 +2,7 @@ from rest_framework.routers import DefaultRouter
 
 from ttk_backend.apps.admision.views import OfferViewSet, PostulantViewSet, WorkExperienceViewSet, EvaluationViewSet
 
-app_name = 'api_common'
+app_name = 'api_admision'
 
 router = DefaultRouter()
 router.register(r'offers', OfferViewSet)

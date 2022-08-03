@@ -8,7 +8,7 @@ from ttk_backend.core.models.models import AbstractAudit, AbstractChoice
 
 class User(AbstractUser, AbstractAudit):
     """
-    Default custom user model for Hsc Logistics Backend.
+    Default custom user model for Ttk Backend Backend.
     If adding fields that need to be filled at user signup,
     check forms.SignupForm and forms.SocialSignupForms accordingly.
     """
