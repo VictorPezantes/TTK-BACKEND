@@ -85,9 +85,9 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
-    "apps.users.apps.UsersConfig",
-    "apps.common.apps.CommonConfig",
-    "apps.admision.apps.AdmisionConfig",
+    "ttk_backend.apps.users",
+    "ttk_backend.apps.common",
+    "ttk_backend.apps.admision",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

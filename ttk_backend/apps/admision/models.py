@@ -57,7 +57,7 @@ class Postulant(AbstractChoice):
         _('Fecha poatulacion'),
         null=True,
         blank=True,
-        default=datetime.now()
+        default=None
     )
 
     class Meta:

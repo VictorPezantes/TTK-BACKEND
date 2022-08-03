@@ -3,7 +3,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 class CommonConfig(AppConfig):
-    name = ""
+    name = "ttk_backend.apps.common"
     verbose_name = _("Commons")
 
     def ready(self):
