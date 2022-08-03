@@ -1,9 +1,9 @@
 from rest_framework.filters import SearchFilter
 from rest_framework.viewsets import ModelViewSet
 
-from ttk_backend.apps.admision.models import Offer, Postulant, WorkExperience
+from ttk_backend.apps.admision.models import Offer, Postulant, WorkExperience, MedicalExam, PersonalInterview
 from ttk_backend.apps.admision.serializers import OfferSerializer, OfferDetailSerializer, PostulantSerializer, \
-    WorkExperienceSerializer, EvaluationSerializer
+    WorkExperienceSerializer, EvaluationSerializer, MedicalExamSerializer, PersonalInterviewSerializer
 from ttk_backend.core.filters import FilterFieldsMixin, SerializerSetMixin
 
 
@@ -45,3 +45,21 @@ class EvaluationViewSet(FilterFieldsMixin, SerializerSetMixin, ModelViewSet):
     detail_serializer = EvaluationSerializer
     create_serializer = EvaluationSerializer
     update_serializer = EvaluationSerializer
+
+
+class MedicalExamViewSet(FilterFieldsMixin, SerializerSetMixin, ModelViewSet):
+    queryset = MedicalExam.objects.all()
+    serializer_class = MedicalExamSerializer
+    list_serializer = MedicalExamSerializer
+    detail_serializer = MedicalExamSerializer
+    create_serializer = MedicalExamSerializer
+    update_serializer = MedicalExamSerializer
+
+
+class PersonalInterviewViewSet(FilterFieldsMixin, SerializerSetMixin, ModelViewSet):
+    queryset = PersonalInterview.objects.all()
+    serializer_class = PersonalInterviewSerializer
+    list_serializer = PersonalInterviewSerializer
+    detail_serializer = PersonalInterviewSerializer
+    create_serializer = PersonalInterviewSerializer
+    update_serializer = PersonalInterviewSerializer

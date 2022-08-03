@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
-from ttk_backend.apps.common.models import Status, DocumentType, PositionApply, EvaluationType, EvaluationCompany
+from ttk_backend.apps.common.models import Status, DocumentType, PositionApply, EvaluationType, EvaluationCompany, \
+    EvaluationClinical, ExamMedicalType, PersonaInterviewLocation
 from ttk_backend.core.serializers import AuditSerializerMixin
 
 
@@ -47,3 +48,30 @@ class EvaluationCompanySerializer(serializers.ModelSerializer):
 
     class Meta(AuditSerializerMixin.Meta):
         model = EvaluationCompany
+
+
+class EvaluationClinicalSerializer(serializers.ModelSerializer):
+    """
+        Serializer for Client model.
+    """
+
+    class Meta(AuditSerializerMixin.Meta):
+        model = EvaluationClinical
+
+
+class ExamMedicalTypeSerializer(serializers.ModelSerializer):
+    """
+        Serializer for Client model.
+    """
+
+    class Meta(AuditSerializerMixin.Meta):
+        model = ExamMedicalType
+
+
+class PersonaInterviewLocationSerializer(serializers.ModelSerializer):
+    """
+        Serializer for Client model.
+    """
+
+    class Meta(AuditSerializerMixin.Meta):
+        model = PersonaInterviewLocation

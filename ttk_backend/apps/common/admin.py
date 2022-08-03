@@ -10,5 +10,5 @@ class StatusAdmin(AuditAdminMixin, admin.ModelAdmin):
 
 
 @admin.register(DocumentType)
-class StatusAdmin(AuditAdminMixin, admin.ModelAdmin):
+class DocumentTypeAdmin(AuditAdminMixin, admin.ModelAdmin):
     list_display = ['id', 'name']

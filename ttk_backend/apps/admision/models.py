@@ -1,6 +1,7 @@
 from datetime import datetime
 
-from ttk_backend.apps.common.models import PositionApply, EvaluationType, EvaluationCompany
+from ttk_backend.apps.common.models import PositionApply, EvaluationType, EvaluationCompany, EvaluationClinical, \
+    ExamMedicalType, PersonaInterviewLocation
 from ttk_backend.apps.users.models import User
 from ttk_backend.core.models.models import AbstractAudit, AbstractChoice
 from django.utils.translation import gettext_lazy as _
@@ -54,10 +55,31 @@ class Postulant(AbstractChoice):
     )
 
     application_date = models.DateTimeField(
-        _('Fecha poatulacion'),
+        _('Fecha postulacion'),
         null=True,
         blank=True,
         default=None
+    )
+
+    is_medical_exam = models.BooleanField(
+        _('examen medico?'),
+        null=True,
+        blank=True,
+        default=False
+    )
+
+    is_personal_interview = models.BooleanField(
+        _('entrevista personal?'),
+        null=True,
+        blank=True,
+        default=False
+    )
+
+    is_personal_interview = models.BooleanField(
+        _('entrevista personal?'),
+        null=True,
+        blank=True,
+        default=False
     )
 
     class Meta:
@@ -184,7 +206,7 @@ class Offer(AbstractAudit):
         return 0
 
 
-class Evaluation(AbstractAudit):
+class EvaluationAbstract(AbstractAudit):
     PROGRAMED = 1
     APROVED = 2
     CANCELLED = 3
@@ -197,14 +219,6 @@ class Evaluation(AbstractAudit):
         (DESAPROVED, 'Desaprobado'),
     )
 
-    postulant = models.ForeignKey(
-        Postulant,
-        on_delete=models.SET_NULL,
-        blank=True,
-        null=True,
-        default=None
-    )
-
     status = models.IntegerField(
         _('Estado de la evaluacion'),
         choices=EVALUATION_STATUS,
@@ -213,6 +227,43 @@ class Evaluation(AbstractAudit):
         default=PROGRAMED
     )
 
+    programed_date = models.DateTimeField(
+        _('Fecha programada'),
+        null=True,
+        blank=True,
+        default=None
+    )
+
+    postulant = models.ForeignKey(
+        Postulant,
+        related_name='postulant_%(model_name)ss',
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        default=None
+    )
+
+    assigned = models.ForeignKey(
+        User,
+        related_name='assigned_%(model_name)ss',
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        default=None
+    )
+
+    observations = models.TextField(
+        _('Observaciones del postulante'),
+        null=True,
+        blank=True,
+        default=None
+    )
+
+    class Meta:
+        abstract = True
+
+
+class Evaluation(EvaluationAbstract):
     evaluation_type = models.ForeignKey(
         EvaluationType,
         on_delete=models.SET_NULL,
@@ -229,29 +280,45 @@ class Evaluation(AbstractAudit):
         default=None
     )
 
-    assigned = models.ForeignKey(
-        User,
+    class Meta:
+        db_table = 'evaluations'
+        verbose_name = _('evaluacion')
+        verbose_name_plural = _('evaluaciones')
+
+
+class MedicalExam(EvaluationAbstract):
+    clinical = models.ForeignKey(
+        EvaluationClinical,
         on_delete=models.SET_NULL,
         blank=True,
         null=True,
         default=None
     )
 
-    observations = models.TextField(
-        _('Observaciones del postulante'),
-        null=True,
+    exam_type = models.ForeignKey(
+        ExamMedicalType,
+        on_delete=models.SET_NULL,
         blank=True,
-        default=None
-    )
-
-    programed_date = models.DateTimeField(
-        _('Fecha programada'),
         null=True,
-        blank=True,
         default=None
     )
 
     class Meta:
-        db_table = 'evaluations'
-        verbose_name = _('evaluacion')
-        verbose_name_plural = _('evaluaciones')
+        db_table = 'medical_exams'
+        verbose_name = _('examen medico')
+        verbose_name_plural = _('examenes medicos')
+
+
+class PersonalInterview(EvaluationAbstract):
+    location = models.ForeignKey(
+        PersonaInterviewLocation,
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        default=None
+    )
+
+    class Meta:
+        db_table = 'personal_interview'
+        verbose_name = _('entrevista personal')
+        verbose_name_plural = _('entrevistas personales')

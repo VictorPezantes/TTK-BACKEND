@@ -1,8 +1,9 @@
-from ttk_backend.apps.common.models import DocumentType, PositionApply, EvaluationType, EvaluationCompany
+from ttk_backend.apps.common.models import DocumentType, PositionApply, EvaluationType, EvaluationCompany, \
+    Status, EvaluationClinical, ExamMedicalType, PersonaInterviewLocation
 from ttk_backend.apps.common.serializers import DocumentTypeSerializer, EvaluationTypeSerializer, \
-    EvaluationCompanySerializer
+    EvaluationCompanySerializer, PositionApplySerializer, EvaluationClinicalSerializer, ExamMedicalTypeSerializer, \
+    PersonaInterviewLocationSerializer
 from ttk_backend.core.filters import FilterFieldsMixin
-from ttk_backend.apps.common.models import Status
 from ttk_backend.apps.common.serializers import StatusSerializer
 from rest_framework.viewsets import ModelViewSet
 
@@ -18,8 +19,8 @@ class DocumentTypeViewSet(FilterFieldsMixin, ModelViewSet):
 
 
 class PositionApplyViewSet(FilterFieldsMixin, ModelViewSet):
-    queryset = DocumentType.objects.all()
-    serializer_class = PositionApply
+    queryset = PositionApply.objects.all()
+    serializer_class = PositionApplySerializer
 
 
 class EvaluationTypeViewSet(FilterFieldsMixin, ModelViewSet):
@@ -30,3 +31,18 @@ class EvaluationTypeViewSet(FilterFieldsMixin, ModelViewSet):
 class EvaluationCompanyViewSet(FilterFieldsMixin, ModelViewSet):
     queryset = EvaluationCompany.objects.all()
     serializer_class = EvaluationCompanySerializer
+
+
+class EvaluationClinicalViewSet(FilterFieldsMixin, ModelViewSet):
+    queryset = EvaluationClinical.objects.all()
+    serializer_class = EvaluationClinicalSerializer
+
+
+class ExamMedicalTypeViewSet(FilterFieldsMixin, ModelViewSet):
+    queryset = ExamMedicalType.objects.all()
+    serializer_class = ExamMedicalTypeSerializer
+
+
+class PersonaInterviewLocationViewSet(FilterFieldsMixin, ModelViewSet):
+    queryset = PersonaInterviewLocation.objects.all()
+    serializer_class = PersonaInterviewLocationSerializer
