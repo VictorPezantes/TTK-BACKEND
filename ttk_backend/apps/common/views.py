@@ -1,5 +1,6 @@
-from ttk_backend.apps.common.models import DocumentType, PositionApply
-from ttk_backend.apps.common.serializers import DocumentTypeSerializer
+from ttk_backend.apps.common.models import DocumentType, PositionApply, EvaluationType, EvaluationCompany
+from ttk_backend.apps.common.serializers import DocumentTypeSerializer, EvaluationTypeSerializer, \
+    EvaluationCompanySerializer
 from ttk_backend.core.filters import FilterFieldsMixin
 from ttk_backend.apps.common.models import Status
 from ttk_backend.apps.common.serializers import StatusSerializer
@@ -19,3 +20,13 @@ class DocumentTypeViewSet(FilterFieldsMixin, ModelViewSet):
 class PositionApplyViewSet(FilterFieldsMixin, ModelViewSet):
     queryset = DocumentType.objects.all()
     serializer_class = PositionApply
+
+
+class EvaluationTypeViewSet(FilterFieldsMixin, ModelViewSet):
+    queryset = EvaluationType.objects.all()
+    serializer_class = EvaluationTypeSerializer
+
+
+class EvaluationCompanyViewSet(FilterFieldsMixin, ModelViewSet):
+    queryset = EvaluationCompany.objects.all()
+    serializer_class = EvaluationCompanySerializer

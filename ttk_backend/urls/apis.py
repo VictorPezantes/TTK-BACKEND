@@ -10,6 +10,8 @@ app_name = "api"
 
 urlpatterns = [
     path('', include(('ttk_backend.apps.users.urls', 'users'), namespace='users')),
+    path('common/', include(('ttk_backend.apps.common.urls', 'common'), namespace='common')),
+    path('admision/', include(('ttk_backend.apps.admision.urls', 'admision'), namespace='admision')),
 
     # Urls JWT
     path('auth/token-auth/', obtain_jwt_token),

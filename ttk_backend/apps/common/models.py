@@ -21,3 +21,17 @@ class PositionApply(AbstractChoice):
         db_table = 'position_apply'
         verbose_name = _('cargo a postular')
         verbose_name_plural = _('cargos a postular')
+
+
+class EvaluationType(AbstractChoice):
+    class Meta:
+        db_table = 'evaluation_type'
+        verbose_name = _('tipo de evaluacion')
+        verbose_name_plural = _('tipo de evaluaciones')
+
+
+class EvaluationCompany(AbstractChoice):
+    class Meta:
+        db_table = 'evaluation_company'
+        verbose_name = _('Empresa evaluadora')
+        verbose_name_plural = _('Empresas evaluadoras')

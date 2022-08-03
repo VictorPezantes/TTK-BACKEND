@@ -17,7 +17,7 @@ class User(AbstractUser, AbstractAudit):
     name = CharField(_("Name of User"), blank=True, max_length=255)
     first_name = None  # type: ignore
     last_name = None  # type: ignore
-    username = None  # type: ignore
+    # username = None  # type: ignore
 
     rol = models.ForeignKey(
         'Role',
@@ -44,7 +44,7 @@ class User(AbstractUser, AbstractAudit):
                               unique=True)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ['username']
 
     class Meta:
         db_table = 'users'

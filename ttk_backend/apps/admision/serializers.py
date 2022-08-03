@@ -1,0 +1,50 @@
+from rest_framework import serializers
+
+from ttk_backend.apps.admision.models import Offer, Postulant, WorkExperience, Evaluation
+from ttk_backend.core.serializers import AuditSerializerMixin, AbstractChoiceSerializer
+
+
+class PostulantSerializer(serializers.ModelSerializer):
+    """
+        Serializer for Client model.
+    """
+
+    class Meta(AuditSerializerMixin.Meta):
+        model = Postulant
+
+
+class WorkExperienceSerializer(serializers.ModelSerializer):
+    """
+        Serializer for Client model.
+    """
+
+    class Meta(AuditSerializerMixin.Meta):
+        model = WorkExperience
+
+
+class OfferSerializer(serializers.ModelSerializer):
+    """
+        Serializer for Client model.
+    """
+
+    class Meta(AuditSerializerMixin.Meta):
+        model = Offer
+
+
+class OfferDetailSerializer(serializers.ModelSerializer):
+    """
+        Serializer for Client model.
+    """
+    position = AbstractChoiceSerializer()
+
+    class Meta(AuditSerializerMixin.Meta):
+        model = Offer
+
+
+class EvaluationSerializer(serializers.ModelSerializer):
+    """
+        Serializer for Client model.
+    """
+
+    class Meta(AuditSerializerMixin.Meta):
+        model = Evaluation
