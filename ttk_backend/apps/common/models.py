@@ -56,3 +56,31 @@ class PersonaInterviewLocation(AbstractChoice):
         db_table = 'personal_interview_location'
         verbose_name = _('Locacion de entrevista personal')
         verbose_name_plural = _('Locaciones de entrevista personal')
+
+
+class CivilStatus(AbstractChoice):
+    class Meta:
+        db_table = 'civil_status'
+        verbose_name = _('estado civil')
+        verbose_name_plural = _('Estados civil')
+
+
+class District(AbstractChoice):
+    class Meta:
+        db_table = 'districts'
+        verbose_name = _('Distrito')
+        verbose_name_plural = _('Distritos')
+
+
+class Province(AbstractChoice):
+    class Meta:
+        db_table = 'provinces'
+        verbose_name = _('Provincia')
+        verbose_name_plural = _('Provincias')
+
+
+class Department(AbstractChoice):
+    class Meta:
+        db_table = 'deparments'
+        verbose_name = _('Departamento')
+        verbose_name_plural = _('Departamentos')

@@ -1,8 +1,9 @@
 from ttk_backend.apps.common.models import DocumentType, PositionApply, EvaluationType, EvaluationCompany, \
-    Status, EvaluationClinical, ExamMedicalType, PersonaInterviewLocation
+    Status, EvaluationClinical, ExamMedicalType, PersonaInterviewLocation, CivilStatus, District, Province, Department
 from ttk_backend.apps.common.serializers import DocumentTypeSerializer, EvaluationTypeSerializer, \
     EvaluationCompanySerializer, PositionApplySerializer, EvaluationClinicalSerializer, ExamMedicalTypeSerializer, \
-    PersonaInterviewLocationSerializer
+    PersonaInterviewLocationSerializer, CivilStatusSerializer, DistrictSerializer, ProvinceSerializer, \
+    DepartmentSerializer
 from ttk_backend.core.filters import FilterFieldsMixin
 from ttk_backend.apps.common.serializers import StatusSerializer
 from rest_framework.viewsets import ModelViewSet
@@ -46,3 +47,23 @@ class ExamMedicalTypeViewSet(FilterFieldsMixin, ModelViewSet):
 class PersonaInterviewLocationViewSet(FilterFieldsMixin, ModelViewSet):
     queryset = PersonaInterviewLocation.objects.all()
     serializer_class = PersonaInterviewLocationSerializer
+
+
+class CivilStatusSerializerViewSet(FilterFieldsMixin, ModelViewSet):
+    queryset = CivilStatus.objects.all()
+    serializer_class = CivilStatusSerializer
+
+
+class DistrictSerializerViewSet(FilterFieldsMixin, ModelViewSet):
+    queryset = District.objects.all()
+    serializer_class = DistrictSerializer
+
+
+class ProvinceSerializerViewSet(FilterFieldsMixin, ModelViewSet):
+    queryset = Province.objects.all()
+    serializer_class = ProvinceSerializer
+
+
+class DepartmentSerializerViewSet(FilterFieldsMixin, ModelViewSet):
+    queryset = Department.objects.all()
+    serializer_class = DepartmentSerializer

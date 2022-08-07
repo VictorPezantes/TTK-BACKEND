@@ -32,12 +32,18 @@ class User(AbstractUser, AbstractAudit):
         _('telefono'),
         max_length=100,
         help_text=_("telefono"),
+        blank=True,
+        null=True,
+        default=None
     )
 
     cellphone = models.CharField(
         _('celular'),
         max_length=100,
         help_text=_("celular"),
+        blank=True,
+        null=True,
+        default=None
     )
 
     email = models.EmailField(_('email address'),

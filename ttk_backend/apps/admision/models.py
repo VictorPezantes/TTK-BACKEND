@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from ttk_backend.apps.common.models import PositionApply, EvaluationType, EvaluationCompany, EvaluationClinical, \
-    ExamMedicalType, PersonaInterviewLocation
+    ExamMedicalType, PersonaInterviewLocation, CivilStatus
 from ttk_backend.apps.users.models import User
 from ttk_backend.core.models.models import AbstractAudit, AbstractChoice
 from django.utils.translation import gettext_lazy as _
@@ -9,6 +9,16 @@ from django.db import models
 
 
 class Postulant(AbstractChoice):
+
+    def curricumlum_doc_file_path(self, filename):
+        return f"postulants/{self.id}/curriculums/{filename}"
+
+    def documents_doc_file_path(self, filename):
+        return f"postulants/{self.id}/documents/{filename}"
+
+    def image_file_path(self, filename):
+        return f"postulants/{self.id}/images/{filename}"
+
     VERIFIED = 1
     PERSONAL_INTERVIEW = 2
     OUT_PROCESS = 3
@@ -47,10 +57,42 @@ class Postulant(AbstractChoice):
         default=None
     )
 
+    document_number = models.CharField(
+        _('document number'),
+        max_length=100,
+        help_text=_("Document number"),
+        blank=True,
+        null=True,
+        default=None
+    )
+
+    address = models.CharField(
+        _('direccion'),
+        max_length=100,
+        help_text=_("Direccion"),
+        blank=True,
+        null=True,
+        default=None
+    )
+
     email = models.EmailField(
         _('email address'),
         blank=True,
         null=True,
+        default=None
+    )
+
+    secondary_email = models.EmailField(
+        _('secondary email address'),
+        blank=True,
+        null=True,
+        default=None
+    )
+
+    birth_date = models.DateField(
+        _('Fecha de nacimiento'),
+        null=True,
+        blank=True,
         default=None
     )
 
@@ -82,55 +124,151 @@ class Postulant(AbstractChoice):
         default=False
     )
 
-    class Meta:
-        db_table = 'postulants'
-        verbose_name = _('postulante')
-        verbose_name_plural = _('postulantes')
-
-
-class WorkExperience(AbstractAudit):
-    postulant = models.ForeignKey(
-        Postulant,
+    civil_status = models.ForeignKey(
+        CivilStatus,
         on_delete=models.SET_NULL,
         blank=True,
         null=True,
         default=None
     )
 
-    speciality = models.CharField(
-        _('especialidad'),
+    phone = models.CharField(
+        _('telefono'),
         max_length=100,
-        null=True,
+        help_text=_("telefono"),
         blank=True,
+        null=True,
         default=None
     )
 
-    company = models.CharField(
-        _('empresa'),
+    cellphone = models.CharField(
+        _('celular'),
         max_length=100,
+        help_text=_("celular"),
+        blank=True,
+        null=True,
+        default=None
+    )
+
+    is_travel = models.BooleanField(
+        _('disponibilidad para viajar?'),
+        null=True,
+        blank=True,
+        default=False
+    )
+
+    is_experience = models.BooleanField(
+        _('experiencia?'),
+        null=True,
+        blank=True,
+        default=False
+    )
+
+    profession_description = models.CharField(
+        _('profesion'),
+        max_length=100,
+        help_text=_("profesion"),
+        blank=True,
+        null=True,
+        default=None
+    )
+
+    profesion_location = models.CharField(
+        _('lugar de profesion'),
+        max_length=100,
+        help_text=_("lugar de profesion"),
+        blank=True,
+        null=True,
+        default=None
+    )
+
+    profesion_last_course = models.CharField(
+        _('profesion - ultimo curso realizado'),
+        max_length=100,
+        help_text=_("profesion - ultimo curso realizado"),
+        blank=True,
+        null=True,
+        default=None
+    )
+
+    profesion_company = models.CharField(
+        _('profesion - empresa'),
+        max_length=100,
+        help_text=_("profesion - empresa"),
+        blank=True,
+        null=True,
+        default=None
+    )
+
+    work_description = models.CharField(
+        _('Trabajo mas reciente'),
+        max_length=100,
+        help_text=_("Trabajo mas reciente"),
+        blank=True,
+        null=True,
+        default=None
+    )
+
+    work_start = models.DateField(
+        _('Fecha de ingreso'),
         null=True,
         blank=True,
         default=None
     )
 
-    init_date = models.DateTimeField(
-        _('Fecha inicio'),
+    work_end = models.DateField(
+        _('Fecha de salida'),
         null=True,
         blank=True,
         default=None
     )
 
-    end_date = models.DateTimeField(
-        _('Fecha fin'),
-        null=True,
+    work_company = models.CharField(
+        _('Empresa de trabajo'),
+        max_length=100,
+        help_text=_("Empresa de trabajo"),
         blank=True,
+        null=True,
         default=None
+    )
+
+    work_exit_description = models.CharField(
+        _('Motivo de salida de trabajo'),
+        max_length=100,
+        help_text=_("Motivo de salida de trabajo"),
+        blank=True,
+        null=True,
+        default=None
+    )
+
+    curriculum_file = models.FileField(
+        _("curriculum"),
+        null=True,
+        default=None,
+        upload_to=curricumlum_doc_file_path,
+        help_text=_("Curriculum File."),
+    )
+
+    document_file = models.FileField(
+        _("document file"),
+        null=True,
+        default=None,
+        upload_to=documents_doc_file_path,
+        help_text=_("Document File."),
+    )
+
+    image_file = models.ImageField(
+        _("image file"),
+        null=True,
+        default=None,
+        upload_to=image_file_path,
+        help_text=_("image File."),
     )
 
     class Meta:
-        db_table = 'work_experience'
-        verbose_name = _('experiencia laboral')
-        verbose_name_plural = _('experiencia laboral')
+        db_table = 'postulants'
+        verbose_name = _('postulante')
+        verbose_name_plural = _('postulantes')
 
 
 class Offer(AbstractAudit):
@@ -191,9 +329,8 @@ class Offer(AbstractAudit):
 
     publication_date = models.DateTimeField(
         _('Publicacion de la oferta'),
-        null=True,
-        blank=True,
-        default=datetime.now()
+        auto_now_add=True,
+        help_text=_('fecha publicada'),
     )
 
     offer_creator = models.ForeignKey(

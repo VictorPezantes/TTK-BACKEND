@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from ttk_backend.apps.admision.models import Offer, Postulant, WorkExperience, Evaluation, MedicalExam, \
+from ttk_backend.apps.admision.models import Offer, Postulant, Evaluation, MedicalExam, \
     PersonalInterview
 from ttk_backend.core.serializers import AuditSerializerMixin, AbstractChoiceSerializer
 
@@ -12,15 +12,6 @@ class PostulantSerializer(serializers.ModelSerializer):
 
     class Meta(AuditSerializerMixin.Meta):
         model = Postulant
-
-
-class WorkExperienceSerializer(serializers.ModelSerializer):
-    """
-        Serializer for Client model.
-    """
-
-    class Meta(AuditSerializerMixin.Meta):
-        model = WorkExperience
 
 
 class OfferSerializer(serializers.ModelSerializer):

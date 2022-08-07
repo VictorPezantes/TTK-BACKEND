@@ -2,9 +2,9 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter
 from rest_framework.viewsets import ModelViewSet
 
-from ttk_backend.apps.admision.models import Offer, Postulant, WorkExperience, MedicalExam, PersonalInterview
-from ttk_backend.apps.admision.serializers import OfferSerializer, OfferDetailSerializer, PostulantSerializer, \
-    WorkExperienceSerializer, EvaluationSerializer, MedicalExamSerializer, PersonalInterviewSerializer
+from ttk_backend.apps.admision.models import Offer, Postulant, MedicalExam, PersonalInterview, Evaluation
+from ttk_backend.apps.admision.serializers import OfferSerializer, OfferDetailSerializer, PostulantSerializer,\
+    EvaluationSerializer, MedicalExamSerializer, PersonalInterviewSerializer
 from ttk_backend.core.filters import FilterFieldsMixin, SerializerSetMixin
 
 
@@ -31,17 +31,8 @@ class PostulantViewSet(FilterFieldsMixin, SerializerSetMixin, ModelViewSet):
     search_fields = ['name']
 
 
-class WorkExperienceViewSet(FilterFieldsMixin, SerializerSetMixin, ModelViewSet):
-    queryset = WorkExperience.objects.all()
-    serializer_class = WorkExperienceSerializer
-    list_serializer = WorkExperienceSerializer
-    detail_serializer = WorkExperienceSerializer
-    create_serializer = WorkExperienceSerializer
-    update_serializer = WorkExperienceSerializer
-
-
 class EvaluationViewSet(FilterFieldsMixin, SerializerSetMixin, ModelViewSet):
-    queryset = WorkExperience.objects.all()
+    queryset = Evaluation.objects.all()
     serializer_class = EvaluationSerializer
     list_serializer = EvaluationSerializer
     detail_serializer = EvaluationSerializer
