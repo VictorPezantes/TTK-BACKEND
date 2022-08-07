@@ -193,7 +193,7 @@ class Offer(AbstractAudit):
         _('Publicacion de la oferta'),
         null=True,
         blank=True,
-        default=None
+        default=datetime.now()
     )
 
     offer_creator = models.ForeignKey(

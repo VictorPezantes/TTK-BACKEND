@@ -16,8 +16,8 @@ class OfferViewSet(FilterFieldsMixin, SerializerSetMixin, ModelViewSet):
     create_serializer = OfferSerializer
     update_serializer = OfferSerializer
     filter_backends = [SearchFilter, DjangoFilterBackend]
-    filterset_fields = ['status', 'offer_creator', 'publication_date']
-    search_fields = ['name']
+    filterset_fields = ['status', 'offer_creator']
+    search_fields = ['title', 'description', 'requisito']
 
 
 class PostulantViewSet(FilterFieldsMixin, SerializerSetMixin, ModelViewSet):
