@@ -1,3 +1,4 @@
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter
 from rest_framework.viewsets import ModelViewSet
 
@@ -14,7 +15,8 @@ class OfferViewSet(FilterFieldsMixin, SerializerSetMixin, ModelViewSet):
     detail_serializer = OfferDetailSerializer
     create_serializer = OfferSerializer
     update_serializer = OfferSerializer
-    filter_backends = [SearchFilter]
+    filter_backends = [SearchFilter, DjangoFilterBackend]
+    filterset_fields = ['status', 'offer_creator', 'publication_date']
     search_fields = ['name']
 
 

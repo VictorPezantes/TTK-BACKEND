@@ -196,6 +196,14 @@ class Offer(AbstractAudit):
         default=None
     )
 
+    offer_creator = models.ForeignKey(
+        'users.User',
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        default=None
+    )
+
     class Meta:
         db_table = 'offers'
         verbose_name = _('oferta')

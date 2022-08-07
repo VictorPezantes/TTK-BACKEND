@@ -37,6 +37,7 @@ class OfferDetailSerializer(serializers.ModelSerializer):
         Serializer for Client model.
     """
     position = AbstractChoiceSerializer()
+    offer_creator = AbstractChoiceSerializer()
 
     class Meta(AuditSerializerMixin.Meta):
         model = Offer
