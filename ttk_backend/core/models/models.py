@@ -59,7 +59,7 @@ class AbstractAudit(models.Model):
         """
         user = get_current_user()
         if user and user.is_authenticated:
-            return getattr(user, user.USERNAME_FIELD, 'system')
+            return getattr(user, user.name, 'system')
         return 'system'
 
     def on_pre_create(self):
