@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from ttk_backend.apps.common.models import PositionApply, EvaluationType, EvaluationCompany, EvaluationClinical, \
-    ExamMedicalType, PersonaInterviewLocation, CivilStatus
+    ExamMedicalType, PersonaInterviewLocation, CivilStatus, Department, Province, District
 from ttk_backend.apps.users.models import User
 from ttk_backend.core.models.models import AbstractAudit, AbstractChoice
 from django.utils.translation import gettext_lazy as _
@@ -37,6 +37,15 @@ class Postulant(AbstractChoice):
         null=True,
         blank=True,
         default=VERIFIED
+    )
+
+    second_name = models.CharField(
+        _('segundo nombre'),
+        max_length=100,
+        help_text=_("segundo nombre"),
+        blank=True,
+        null=True,
+        default=None
     )
 
     last_name = models.CharField(
@@ -117,15 +126,32 @@ class Postulant(AbstractChoice):
         default=False
     )
 
-    is_personal_interview = models.BooleanField(
-        _('entrevista personal?'),
-        null=True,
-        blank=True,
-        default=False
-    )
-
     civil_status = models.ForeignKey(
         CivilStatus,
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        default=None
+    )
+
+    department = models.ForeignKey(
+        Department,
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        default=None
+    )
+
+    province = models.ForeignKey(
+        Province,
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        default=None
+    )
+
+    district = models.ForeignKey(
+        District,
         on_delete=models.SET_NULL,
         blank=True,
         null=True,
@@ -145,6 +171,15 @@ class Postulant(AbstractChoice):
         _('celular'),
         max_length=100,
         help_text=_("celular"),
+        blank=True,
+        null=True,
+        default=None
+    )
+
+    second_cellphone = models.CharField(
+        _('segundo celular'),
+        max_length=100,
+        help_text=_("segundo celular"),
         blank=True,
         null=True,
         default=None
